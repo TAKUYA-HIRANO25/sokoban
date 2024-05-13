@@ -7,6 +7,7 @@ public class GameManagerScript : MonoBehaviour
 {
     public GameObject playerPrefab;
     public GameObject BoxPrefab;
+    public GameObject clearText;
     int[,] map;
     GameObject[,] field;
     /* void PrintArray()
@@ -36,6 +37,7 @@ public class GameManagerScript : MonoBehaviour
         }
         return new Vector2Int(-1, -1);
     }
+    //ˆÚ“®
     bool MoveNumber(Vector2Int moveFrom, Vector2Int moveTo)
      {
          if (moveTo.y < 0 || moveTo.y >= field.GetLength(0))
@@ -61,6 +63,30 @@ public class GameManagerScript : MonoBehaviour
          field[moveFrom.y,moveFrom.x] = null;
          return true;
      }
+    //ƒNƒŠƒA”»’è
+    bool IsCleard()
+    {
+        List<Vector2Int> goals = new List<Vector2Int>();
+        for (int y = 0; y < map.GetLength(0); y++)
+        {
+            for (int x = 0; x < map.GetLength(1); x++)
+            {
+                if (map[y,x] == 3)
+                {
+                    goals.Add(new Vector2Int(x,y));
+                }
+            }
+        }
+        for(int i = 0; i < goals.Count; i++)
+        {
+            GameObject f = field[goals[i].y ,goals[i].x];
+            if(f == null || f.tag != "Box")
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -73,7 +99,9 @@ public class GameManagerScript : MonoBehaviour
 
         map = new int[,] {
         { 0, 0, 0, 0, 0 },
-        { 0, 0, 1, 2, 0 },
+        { 0, 2, 0, 2, 0 },
+        { 0, 0, 1, 0, 0 },
+        { 0, 3, 0, 3, 0 },
         { 0, 0, 0, 0, 0 },
         };
 
@@ -110,7 +138,6 @@ public class GameManagerScript : MonoBehaviour
             debugText += "\n";
         }
         Debug.Log(debugText);
-
     }
     //Update is called once per frame
     void Update()
@@ -142,6 +169,11 @@ public class GameManagerScript : MonoBehaviour
 
             MoveNumber(playerIndex, new Vector2Int(playerIndex.x, playerIndex.y + 1));
 
+        }
+        if (IsCleard())
+        {
+            Debug.Log("Clear");
+            clearText.SetActive(true);
         }
     }
 }
