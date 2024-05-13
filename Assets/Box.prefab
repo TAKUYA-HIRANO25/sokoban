@@ -97,4 +97,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 0}
-  BoxPrefab: {fileID: 3371443323556987429}
+  BoxPrefab: {fileID: 0}
