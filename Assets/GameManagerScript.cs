@@ -7,6 +7,7 @@ public class GameManagerScript : MonoBehaviour
 {
     public GameObject playerPrefab;
     public GameObject BoxPrefab;
+    public GameObject clearPrefab;
     public GameObject clearText;
     int[,] map;
     GameObject[,] field;
@@ -58,7 +59,9 @@ public class GameManagerScript : MonoBehaviour
                  return false;
              }
          }
-         field[moveFrom.y,moveFrom.x].transform.position = new Vector3(moveTo.x,field.GetLength(0) - moveTo.y,0);
+        //field[moveFrom.y,moveFrom.x].transform.position = new Vector3(moveTo.x,field.GetLength(0) - moveTo.y,0);
+        Vector3 moveToPosition = new Vector3(moveTo.x, map.GetLength(0) - moveTo.y, 0);
+        field[moveFrom.y, moveFrom.x].GetComponent<Move>().MoveTo(moveToPosition);
          field[moveTo.y, moveTo.x] = field[moveFrom.y, moveFrom.x];
          field[moveFrom.y,moveFrom.x] = null;
          return true;
@@ -90,7 +93,7 @@ public class GameManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        Screen.SetResolution(1280, 720, false);
         /*GameObject instance = Instantiate(
             playerPrefab,
             new Vector3(0, 0, 0),
@@ -130,6 +133,14 @@ public class GameManagerScript : MonoBehaviour
                     field[y, x] = Instantiate(
                        BoxPrefab,
                        new Vector3(x, map.GetLength(0) - y, 0),
+                       Quaternion.identity
+                       );
+                }
+                if (map[y, x] == 3)
+                {
+                    field[y, x] = Instantiate(
+                       clearPrefab,
+                       new Vector3(x, map.GetLength(0) - y, 0.01f),
                        Quaternion.identity
                        );
                 }

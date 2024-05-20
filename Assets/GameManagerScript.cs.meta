@@ -6,6 +6,8 @@ MonoImporter:
   defaultReferences:
   - playerPrefab: {fileID: 3139727771612283414, guid: 5872b37bf6b8c9f42880a89a389e1803, type: 3}
   - BoxPrefab: {fileID: 3371443323556987429, guid: 3260cff854f208b4bb3e1b26eae6e182, type: 3}
+  - clearPrefab: {fileID: 4752490446544098543, guid: 503d3df2e6d1989499180f5e3c07b51d, type: 3}
+  - clearText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
